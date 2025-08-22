@@ -1,23 +1,119 @@
-# AI Learning Process Architect Portfolio
+# 조동훈 (DongHoon Cho) - AI 학습 과정 설계자 포트폴리오
+
+## 📋 프로젝트 개요
 
 조동훈 (DongHoon Cho)의 AI 학습 과정 설계자 포트폴리오입니다.
 
-## 🚀 About Me
+## 🚀 기술 스택
 
-항공과학 학사 학위를 보유한 34세의 파일럿 출신으로서, 인공지능이 인류의 미래에 미칠 영향에 깊은 관심을 가지고 있습니다. 고도화된 AI 모델과의 심층적인 대화를 통해 AI가 단순한 기술을 넘어, 인간 존재에 대한 근본적인 질문을 제기한다는 사실을 깨달았습니다.
+- **Frontend**: React 18, TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion, GSAP
+- **Icons**: Lucide React
+- **Build Tool**: Vite
 
-이에 따라, AI 분야에서 철학적, 인지적, 존재론적 관점에서의 탐구와 연구에 헌신하고자 하며, 희망 직군은 **RLAIF 기술 기반 AI 학습 설계자**와 **AI 안전 및 정렬 연구원**입니다.
+## 🎨 주요 기능
 
-## 🛠️ Skills & Technologies
+### 애니메이션 컴포넌트
+- **CircularText**: 원형 회전 텍스트 애니메이션
+- **GradientText**: 그라데이션 텍스트 애니메이션
+- **GlitchText**: 글리치 효과 텍스트
+- **SplitText**: 스크롤 기반 텍스트 분할 애니메이션
+- **TextType**: 타이핑 효과 애니메이션
+- **VariableProximity**: 마우스 근접 기반 폰트 변화 효과
 
-- **Python Programming** - AI/ML 개발의 기초
-- **Large Language Models** - 최신 LLM 기술 이해
-- **Machine Learning** - 머신러닝 알고리즘 및 모델링
-- **Deep Learning** - 신경망 및 딥러닝 프레임워크
-- **AI Safety & Alignment** - AI 안전성 및 정렬 연구
-- **Cross-cultural Communication** - 다문화 환경에서의 AI 시스템 설계
+### 재사용 가능한 컴포넌트
+- **ExperienceCard**: 경력 항목 표시
+- **ProjectCard**: 프로젝트 항목 표시
+- **SkillCard**: 스킬 항목 표시
+- **SectionContainer**: 섹션 컨테이너
 
-## 🎯 Featured Projects
+## 📁 프로젝트 구조
+
+```
+src/
+├── components/          # 재사용 가능한 컴포넌트
+│   ├── CircularText.tsx
+│   ├── GradientText.tsx
+│   ├── GlitchText.tsx
+│   ├── SplitText.tsx
+│   ├── TextType.tsx
+│   ├── VariableProximity.tsx
+│   ├── ExperienceCard.tsx
+│   ├── ProjectCard.tsx
+│   ├── SkillCard.tsx
+│   └── SectionContainer.tsx
+├── data/               # 데이터 파일
+│   └── portfolioData.ts
+├── types/              # TypeScript 타입 정의
+│   └── index.ts
+└── App.tsx            # 메인 애플리케이션
+```
+
+## 🔧 새로운 내용 추가하기
+
+### 1. 새로운 경력 추가
+`src/data/portfolioData.ts` 파일의 `experiences` 배열에 추가:
+
+```typescript
+export const experiences: Experience[] = [
+  // 기존 경력들...
+  {
+    company: "새로운 회사명",
+    position: "새로운 직책",
+    period: "2024.01 - 2024.12",
+    description: "새로운 설명"
+  }
+];
+```
+
+### 2. 새로운 프로젝트 추가
+`src/data/portfolioData.ts` 파일의 `projects` 배열에 추가:
+
+```typescript
+export const projects: Project[] = [
+  // 기존 프로젝트들...
+  {
+    title: "새로운 프로젝트 제목",
+    description: "프로젝트 설명",
+    tech: ["기술1", "기술2", "기술3"],
+    image: "이미지_URL",
+    github: "GitHub_링크",
+    demo: "데모_링크"
+  }
+];
+```
+
+### 3. 새로운 스킬 추가
+`src/data/portfolioData.ts` 파일의 `skills` 배열에 추가:
+
+```typescript
+import { NewIcon } from 'lucide-react';
+
+export const skills: Skill[] = [
+  // 기존 스킬들...
+  { 
+    name: '새로운 스킬명', 
+    icon: NewIcon, 
+    level: 85 
+  }
+];
+```
+
+### 4. 새로운 핵심 역량 추가
+`src/data/portfolioData.ts` 파일의 `coreCompetencies` 배열에 추가:
+
+```typescript
+export const coreCompetencies: CoreCompetency[] = [
+  // 기존 역량들...
+  { 
+    name: "새로운 핵심 역량", 
+    color: "bg-blue-400" 
+  }
+];
+```
+
+## 🎯 주요 섹션
 
 ### 1. AI 학습 과정 설계 연구
 AI가 '어떻게' 배우고 '왜' 그렇게 배워야 하는지를 설계하는 연구 프로젝트
@@ -28,64 +124,23 @@ AI가 '어떻게' 배우고 '왜' 그렇게 배워야 하는지를 설계하는 
 ### 3. 교차문화 AI 커뮤니케이션
 다문화 환경에서의 AI 시스템 설계 및 커뮤니케이션 최적화
 
-## 💼 Experience
+## 🛠️ 개발 환경 설정
 
-- **KDU 비행교육원** - 비행 교관 (CFII) | 2024.11 - 2025.05
-- **United Airlines** - 부기장 (First Officer) | 2022.01 - 2023.10
-- **WestWind School of Aeronautics** - 비행 교관 (CFII) | 2020.02 - 2021.09
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React, TypeScript, Tailwind CSS
-- **Build Tool**: Vite
-- **Styling**: CSS3, Tailwind CSS
-- **Icons**: Lucide React
-- **Font**: Google Fonts (Poppins)
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository
 ```bash
-git clone https://github.com/your-username/portfolio.git
-cd portfolio
-```
-
-2. Install dependencies
-```bash
+# 의존성 설치
 npm install
-```
 
-3. Start the development server
-```bash
+# 개발 서버 실행
 npm run dev
+
+# 빌드
+npm run build
 ```
 
-4. Open your browser and visit `http://localhost:5173`
+## 📝 라이센스
 
-## 📝 Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-## 📧 Contact
-
-- **Email**: chodonghoon91@gmail.com
-- **GitHub**: [Your GitHub Profile]
-- **LinkedIn**: [Your LinkedIn Profile]
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
+이 프로젝트는 MIT 라이센스 하에 배포됩니다.
 
 ---
 
-© 2024 조동훈 (DongHoon Cho) Portfolio. Made with React & Tailwind CSS.
+**조동훈 (DongHoon Cho)** - AI 학습 과정 설계자 & AI Safety & Alignment 연구원

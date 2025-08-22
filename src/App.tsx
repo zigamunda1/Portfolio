@@ -1,29 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronDown, Github, Linkedin, Mail, ExternalLink, Code, Brain, Database, Zap, Award, Calendar } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { ChevronDown, Github, Linkedin, Mail, Brain, Code, Database, Zap, Award, Calendar, GraduationCap } from 'lucide-react';
+import { 
+  CircularText, 
+  GradientText, 
+  GlitchText, 
+  ShinyText,
+  SplitText, 
+  TextType, 
+  VariableProximity 
+} from './components/animations';
+import { EducationCard } from './components/cards';
+import { education } from './data/portfolioData';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
-  const [isVisible, setIsVisible] = useState({});
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setIsVisible(prev => ({
-            ...prev,
-            [entry.target.id]: entry.isIntersecting
-          }));
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    document.querySelectorAll('section[id]').forEach((section) => {
-      observer.observe(section);
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const contactContainerRef = useRef<HTMLDivElement>(null);
+  const experienceContainerRef = useRef<HTMLDivElement>(null);
+  const educationContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
@@ -69,7 +62,7 @@ const Portfolio = () => {
   const experiences = [
     {
       company: "KDU 비행교육원",
-      position: "비행 교관 (CFII)",
+      position: "Certified Flight Instructor (CFII)",
       period: "2024.11 - 2025.05",
       description: "대한민국 양양"
     },
@@ -77,11 +70,11 @@ const Portfolio = () => {
       company: "United Airlines",
       position: "부기장 (First Officer)",
       period: "2022.01 - 2023.10",
-      description: "Arizona, United States"
+      description: "United States"
     },
     {
       company: "WestWind School of Aeronautics",
-      position: "비행 교관 (CFII)",
+      position: "Certified Flight Instructor (CFII)",
       period: "2020.02 - 2021.09",
       description: "Arizona, United States"
     }
@@ -91,21 +84,42 @@ const Portfolio = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-black/20 backdrop-blur-md z-50 border-b border-white/10">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-6 py-2">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <GlitchText
+              speed={1}
+              enableShadows={true}
+              enableOnHover={true}
+              className="text-3xl font-bold"
+            >
               Joe's Portfolio
-            </h1>
-            <div className="flex space-x-10">
-              {['home', 'about', 'skills', 'projects', 'experience', 'contact'].map((item) => (
+            </GlitchText>
+            <div className="flex space-x-4 items-center">
+              {['home', 'about', 'skills', 'projects', 'experience', 'education', 'contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className={`capitalize text-lg font-medium transition-colors duration-300 hover:text-cyan-400 ${
-                    activeSection === item ? 'text-cyan-400' : 'text-white/80'
-                  }`}
+                  className="capitalize transition-all duration-300 flex items-center px-2 py-1"
                 >
-                  {item === 'home' ? 'Home' : item}
+                  {activeSection === item ? (
+                    <GlitchText
+                      speed={0.5}
+                      enableShadows={false}
+                      enableOnHover={true}
+                      className="text-[17px] font-medium"
+                    >
+                      {item === 'home' ? 'Home' : item}
+                    </GlitchText>
+                  ) : (
+                    <GlitchText
+                      speed={0.3}
+                      enableShadows={false}
+                      enableOnHover={true}
+                      className="text-[17px] font-medium text-white/80"
+                    >
+                      {item === 'home' ? 'Home' : item}
+                    </GlitchText>
+                  )}
                 </button>
               ))}
             </div>
@@ -114,29 +128,65 @@ const Portfolio = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.3),transparent_50%)]"></div>
         <div className="container mx-auto px-6 text-center z-10">
           <div className="mb-8">
-            <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 p-1">
-              <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center">
-                <Brain className="w-16 h-16 text-cyan-400" />
+            <div className="relative w-48 h-48 mx-auto mb-6">
+              <div className="absolute inset-0 flex items-center justify-center">
+                              <CircularText 
+                text=" AI TRAINING ARCHITECT" 
+                spinDuration={30}
+                onHover="speedUp"
+                className="absolute text-semibold"
+              />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                <div className="w-32 h-32 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 p-2 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center border-2 border-slate-700">
+                    <Brain className="w-20 h-20 text-cyan-400" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            AI Learning Process Architect
-          </h1>
-          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-            AI가 '무엇'을 배우는지뿐만 아니라 '어떻게' 배우고 '왜' 그렇게 배워야 하는지를 설계하는 
-            AI 학습 과정 설계자이자 AI Safety & Alignment 연구원을 희망하는 주니어 개발자 조동훈 입니다.
-          </p>
+          <GradientText
+            colors={["#22d3ee", "#a855f7", "#ec4899", "#22d3ee", "#a855f7"]}
+            animationSpeed={4}
+            showBorder={false}
+            className="text-6xl font-bold mb-6"
+          >
+            AI Learning Process Researcher
+          </GradientText>
+          <SplitText
+            text="AI가 '무엇'을 배우는지뿐만 아니라, '어떻게' 배우고 '왜' 그렇게 배워야 하는지를 설계하는 AI 학습 과정 설계자이자 AI Safety & Alignment 연구원을 희망하는 주니어 개발자 조동훈 입니다."
+            className="text-xl text-white/60 mb-8 max-w-2xl mx-auto leading-relaxed"
+            delay={20}
+            duration={0.7}
+            ease="power3.out"
+            splitType="words"
+            from={{ opacity: 0, y: 30 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-50px"
+            textAlign="center"
+          />
           <div className="flex justify-center space-x-4 mb-12">
             <button className="bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-3 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 font-bold">
-              프로젝트 보기
+              <ShinyText 
+                text="프로젝트 보기" 
+                disabled={false} 
+                speed={3} 
+                className="text-white font-bold" 
+              />
             </button>
             <button className="border border-white/30 px-8 py-3 rounded-full hover:bg-white/10 transition-all duration-300 font-bold">
-              연락하기
+              <ShinyText 
+                text="연락하기" 
+                disabled={false} 
+                speed={3} 
+                className="text-white font-bold" 
+              />
             </button>
           </div>
           <button
@@ -151,47 +201,96 @@ const Portfolio = () => {
       {/* About Section */}
       <section id="about" className="py-20 bg-black/20">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          <GradientText
+            colors={["#22d3ee", "#a855f7", "#22d3ee", "#a855f7", "#22d3ee"]}
+            animationSpeed={3}
+            showBorder={false}
+            className="text-4xl font-bold text-center mb-16 pb-10"
+          >
             About Me
-          </h2>
+          </GradientText>
           <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <p className="text-lg text-white/80 leading-8 mb-8 font-light tracking-wide">
-                  항공과학 학사 학위를 보유한 34세의 파일럿 
-                  출신으로서, 인공지능이 인류의 미래에 미칠 영향에 깊은 관심을 가지고 있습니다.<br className="hidden md:block" />
-                  고도화된 AI 모델과의 심층적인 대화를 통해 AI가 단순한 기술을 넘어, 인간 존재에 대한 근본적인 질문을 제기한다는 사실을 깨달았습니다.
-                </p>
-                <p className="text-lg text-white/80 leading-8 mb-8 font-light tracking-wide">
-                  이에 따라, AI 분야에서 철학적, 인지적, 존재론적 관점에서의 탐구와 연구에 헌신하고자 하며, 
-                  희망 직군은 <span className="text-cyan-400 font-medium">RLAIF 기술 기반 AI 학습 설계자</span>와 
-                  <span className="text-purple-400 font-medium"> AI 안전 및 정렬 연구원</span>입니다.
-                </p>
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              <div className="flex flex-col justify-start">
+                <SplitText
+                  text="항공과학 학사 학위를 보유한 34세의 파일럿 출신으로서, 인공지능이 인류의 미래에 미칠 영향에 깊은 관심을 가지고 있습니다. 고도화된 AI 모델과의 심층적인 대화를 통해 AI가 단순한 기술을 넘어, 인간 존재에 대한 근본적인 질문을 제기한다는 사실을 깨달았습니다."
+                  className="text-lg text-white/80 leading-8 mb-8 font-light tracking-wide"
+                  delay={20}
+                  duration={0.7}
+                  ease="power3.out"
+                  splitType="words"
+                  from={{ opacity: 0, y: 30 }}
+                  to={{ opacity: 1, y: 0 }}
+                  threshold={0.1}
+                  rootMargin="-50px"
+                  textAlign="left"
+                />
+                <SplitText
+                  text="이에 따라, AI 분야에서 철학적, 인지적, 존재론적 관점에서의 탐구와 연구에 헌신하고자 하며, 희망 직군은 RLAIF 기술 기반 AI 학습 설계자와 AI 안전 및 정렬 연구원입니다."
+                  className="text-lg text-white/80 leading-8 mb-8 font-light tracking-wide"
+                  delay={20}
+                  duration={0.7}
+                  ease="power3.out"
+                  splitType="words"
+                  from={{ opacity: 0, y: 30 }}
+                  to={{ opacity: 1, y: 0 }}
+                  threshold={0.1}
+                  rootMargin="-50px"
+                  textAlign="left"
+                />
                 <div className="flex space-x-4">
                   <Github className="w-6 h-6 text-white/60 hover:text-cyan-400 cursor-pointer transition-colors" />
                   <Linkedin className="w-6 h-6 text-white/60 hover:text-cyan-400 cursor-pointer transition-colors" />
                   <Mail className="w-6 h-6 text-white/60 hover:text-cyan-400 cursor-pointer transition-colors" />
                 </div>
               </div>
-              <div className="relative">
+              <div className="flex flex-col justify-start">
                 <div className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl p-8 backdrop-blur-sm border border-white/10">
                   <h3 className="text-xl font-semibold mb-4 text-cyan-400">핵심 역량</h3>
                   <ul className="space-y-3 text-white/80">
                     <li className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
-                      <span>AI 학습 과정 설계 및 최적화</span>
+                      <TextType 
+                        text="AI 학습 과정 설계 및 최적화"
+                        typingSpeed={75}
+                        pauseDuration={1500}
+                        showCursor={true}
+                        cursorCharacter="|"
+                        className="text-white/80"
+                      />
                     </li>
                     <li className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                      <span>AI 안전 및 정렬 연구</span>
+                      <TextType 
+                        text="AI 안전 및 정렬 연구"
+                        typingSpeed={75}
+                        pauseDuration={1500}
+                        showCursor={true}
+                        cursorCharacter="|"
+                        className="text-white/80"
+                      />
                     </li>
                     <li className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
-                      <span>교차문화 커뮤니케이션</span>
+                      <TextType 
+                        text="교차문화 커뮤니케이션"
+                        typingSpeed={75}
+                        pauseDuration={1500}
+                        showCursor={true}
+                        cursorCharacter="|"
+                        className="text-white/80"
+                      />
                     </li>
                     <li className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
-                      <span>철학적, 인지적 AI 연구</span>
+                      <TextType 
+                        text="철학적, 인지적 AI 연구"
+                        typingSpeed={75}
+                        pauseDuration={1500}
+                        showCursor={true}
+                        cursorCharacter="|"
+                        className="text-white/80"
+                      />
                     </li>
                   </ul>
                 </div>
@@ -204,9 +303,14 @@ const Portfolio = () => {
       {/* Skills Section */}
       <section id="skills" className="py-20">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          <GradientText
+            colors={["#22d3ee", "#a855f7", "#22d3ee", "#a855f7", "#22d3ee"]}
+            animationSpeed={3}
+            showBorder={false}
+            className="text-4xl font-bold text-center mb-16 pb-10"
+          >
             Skills & Technologies
-          </h2>
+          </GradientText>
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
               {skills.map((skill, index) => {
@@ -218,7 +322,16 @@ const Portfolio = () => {
                   >
                     <div className="flex items-center mb-4">
                       <Icon className="w-8 h-8 text-cyan-400 mr-3" />
-                      <h3 className="text-xl font-semibold">{skill.name}</h3>
+                      <h3 className="text-xl font-semibold">
+                        <TextType 
+                          text={skill.name}
+                          typingSpeed={75}
+                          pauseDuration={1500}
+                          showCursor={true}
+                          cursorCharacter="|"
+                          className="text-white font-semibold"
+                        />
+                      </h3>
                     </div>
                     <div className="w-full bg-white/10 rounded-full h-3">
                       <div
@@ -238,9 +351,14 @@ const Portfolio = () => {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-black/20">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          <GradientText
+            colors={["#22d3ee", "#a855f7", "#22d3ee", "#a855f7", "#22d3ee"]}
+            animationSpeed={3}
+            showBorder={false}
+            className="text-4xl font-bold text-center mb-16 pb-10"
+          >
             Featured Projects
-          </h2>
+          </GradientText>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div
@@ -281,10 +399,19 @@ const Portfolio = () => {
       {/* Experience Section */}
       <section id="experience" className="py-20">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          <GradientText
+            colors={["#22d3ee", "#a855f7", "#22d3ee", "#a855f7", "#22d3ee"]}
+            animationSpeed={3}
+            showBorder={false}
+            className="text-4xl font-bold text-center mb-16 pb-10"
+          >
             Experience
-          </h2>
-          <div className="max-w-4xl mx-auto">
+          </GradientText>
+          <div 
+            ref={experienceContainerRef}
+            className="max-w-4xl mx-auto"
+            style={{position: 'relative'}}
+          >
             <div className="space-y-8">
               {experiences.map((exp, index) => (
                 <div
@@ -293,9 +420,39 @@ const Portfolio = () => {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-2xl font-semibold text-cyan-400 mb-2">{exp.position}</h3>
-                      <h4 className="text-xl text-white/90 mb-2">{exp.company}</h4>
-                      <p className="text-white/70 leading-relaxed">{exp.description}</p>
+                      <h3 className="text-2xl font-semibold text-white mb-2">
+                        <VariableProximity
+                          label={exp.position}
+                          className="text-white"
+                          fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                          toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                          containerRef={experienceContainerRef}
+                          radius={80}
+                          falloff="linear"
+                        />
+                      </h3>
+                      <h4 className="text-xl text-white/90 mb-2">
+                        <VariableProximity
+                          label={exp.company}
+                          className="text-white/90"
+                          fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                          toFontVariationSettings="'wght' 800, 'opsz' 30"
+                          containerRef={experienceContainerRef}
+                          radius={60}
+                          falloff="linear"
+                        />
+                      </h4>
+                      <p className="text-white/70 leading-relaxed">
+                        <VariableProximity
+                          label={exp.description}
+                          className="text-white/70"
+                          fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                          toFontVariationSettings="'wght' 600, 'opsz' 20"
+                          containerRef={experienceContainerRef}
+                          radius={50}
+                          falloff="linear"
+                        />
+                      </p>
                     </div>
                     <div className="flex items-center text-white/60">
                       <Calendar className="w-4 h-4 mr-2" />
@@ -309,16 +466,61 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Education Section */}
+      <section id="education" className="py-20 bg-black/20">
+        <div className="container mx-auto px-6">
+          <GradientText
+            colors={["#22d3ee", "#a855f7", "#22d3ee", "#a855f7", "#22d3ee"]}
+            animationSpeed={3}
+            showBorder={false}
+            className="text-4xl font-bold text-center mb-16 pb-10"
+          >
+            Education
+          </GradientText>
+          <div 
+            ref={educationContainerRef}
+            className="max-w-4xl mx-auto"
+            style={{position: 'relative'}}
+          >
+            <div className="space-y-8">
+              {education.map((edu, index) => (
+                <EducationCard 
+                  key={index} 
+                  education={edu} 
+                  containerRef={educationContainerRef}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-black/20">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          <GradientText
+            colors={["#22d3ee", "#a855f7", "#22d3ee", "#a855f7", "#22d3ee"]}
+            animationSpeed={3}
+            showBorder={false}
+            className="text-4xl font-bold text-center mb-16 pb-10"
+          >
             Contact Info
-          </h2>
-          <div className="max-w-2xl mx-auto text-center">
+          </GradientText>
+          <div 
+            ref={contactContainerRef}
+            className="max-w-2xl mx-auto text-center"
+            style={{position: 'relative'}}
+          >
             <p className="text-xl text-white/80 mb-8 leading-relaxed">
-              AI 학습 과정 설계, AI 안전 및 정렬 연구, 또는 철학적 AI 연구에 관한 
-              새로운 프로젝트나 협업 기회에 관심이 있으시면 언제든 연락주세요.
+              <VariableProximity
+                label="AI 학습 과정 설계, AI 안전 및 정렬 연구, 또는 철학적 AI 연구에 관한 새로운 프로젝트나 협업 기회에 관심이 있으시면 언제든 연락주세요."
+                className="text-white/80"
+                fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                containerRef={contactContainerRef}
+                radius={100}
+                falloff="linear"
+              />
             </p>
             <div className="flex justify-center space-x-8 mb-8">
               <a
@@ -344,7 +546,12 @@ const Portfolio = () => {
               </a>
             </div>
             <button className="bg-gradient-to-r from-cyan-500 to-purple-500 px-8 py-3 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105">
-              이력서 다운로드
+              <ShinyText 
+                text="이력서 다운로드" 
+                disabled={false} 
+                speed={3} 
+                className="text-white font-bold" 
+              />
             </button>
           </div>
         </div>
@@ -354,7 +561,7 @@ const Portfolio = () => {
       <footer className="py-8 border-t border-white/10">
         <div className="container mx-auto px-6 text-center">
           <p className="text-white/60">
-            © 2024 조동훈 (DongHoon Cho) Portfolio. Made with React & Tailwind CSS.
+            © 2025 조동훈 (DongHoon Cho) Portfolio. Made with React & Tailwind CSS.
           </p>
         </div>
       </footer>
