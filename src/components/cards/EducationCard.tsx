@@ -29,10 +29,10 @@ const EducationCard = ({ education, containerRef }: EducationCardProps) => {
               falloff="linear"
             />
           </h3>
-          <h4 className="text-xl text-white/90 mb-2">
+          <h4 className="text-xl text-white/70 mb-2">
             <VariableProximity
               label={education.degree}
-              className="text-white/90"
+              className="text-white/70"
               fromFontVariationSettings="'wght' 400, 'opsz' 9"
               toFontVariationSettings="'wght' 800, 'opsz' 30"
               containerRef={containerRef}

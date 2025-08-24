@@ -35,3 +35,9 @@ export interface Education {
   period: string;
   description?: string;
 }
+
+export interface SocialLinks {
+  github: string;
+  linkedin: string;
+  email: string;
+}

@@ -10,7 +10,7 @@ import {
   VariableProximity 
 } from './components/animations';
 import { EducationCard } from './components/cards';
-import { education } from './data/portfolioData';
+import { education, socialLinks, getEmailLink, resumeLink } from './data/portfolioData';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -172,7 +172,10 @@ const Portfolio = () => {
             textAlign="center"
           />
           <div className="flex justify-center space-x-4 mb-12">
-            <button className="bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-3 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 font-bold">
+            <button 
+              onClick={() => scrollToSection('projects')}
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-3 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 font-bold"
+            >
               <ShinyText 
                 text="프로젝트 보기" 
                 disabled={false} 
@@ -180,7 +183,10 @@ const Portfolio = () => {
                 className="text-white font-bold" 
               />
             </button>
-            <button className="border border-white/30 px-8 py-3 rounded-full hover:bg-white/10 transition-all duration-300 font-bold">
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="border border-white/30 px-8 py-3 rounded-full hover:bg-white/10 transition-all duration-300 font-bold"
+            >
               <ShinyText 
                 text="연락하기" 
                 disabled={false} 
@@ -239,9 +245,28 @@ const Portfolio = () => {
                   textAlign="left"
                 />
                 <div className="flex space-x-4">
-                  <Github className="w-6 h-6 text-white/60 hover:text-cyan-400 cursor-pointer transition-colors" />
-                  <Linkedin className="w-6 h-6 text-white/60 hover:text-cyan-400 cursor-pointer transition-colors" />
-                  <Mail className="w-6 h-6 text-white/60 hover:text-cyan-400 cursor-pointer transition-colors" />
+                  <a 
+                    href={socialLinks.github} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-white/60 hover:text-cyan-400 transition-colors"
+                  >
+                    <Github className="w-6 h-6 cursor-pointer" />
+                  </a>
+                  <a 
+                    href={socialLinks.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-white/60 hover:text-cyan-400 transition-colors"
+                  >
+                    <Linkedin className="w-6 h-6 cursor-pointer" />
+                  </a>
+                  <a 
+                    href={getEmailLink()}
+                    className="text-white/60 hover:text-cyan-400 transition-colors"
+                  >
+                    <Mail className="w-6 h-6 cursor-pointer" />
+                  </a>
                 </div>
               </div>
               <div className="flex flex-col justify-start">
@@ -524,35 +549,43 @@ const Portfolio = () => {
             </p>
             <div className="flex justify-center space-x-8 mb-8">
               <a
-                href="mailto:chodonghoon91@gmail.com"
+                href={getEmailLink()}
                 className="flex items-center space-x-3 text-white/80 hover:text-cyan-400 transition-colors"
               >
                 <Mail className="w-6 h-6" />
-                <span>chodonghoon91@gmail.com</span>
+                <span>{socialLinks.email}</span>
               </a>
               <a
-                href="#"
+                href={socialLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center space-x-3 text-white/80 hover:text-cyan-400 transition-colors"
               >
                 <Github className="w-6 h-6" />
                 <span>GitHub</span>
               </a>
               <a
-                href="#"
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center space-x-3 text-white/80 hover:text-cyan-400 transition-colors"
               >
                 <Linkedin className="w-6 h-6" />
                 <span>LinkedIn</span>
               </a>
             </div>
-            <button className="bg-gradient-to-r from-cyan-500 to-purple-500 px-8 py-3 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105">
+            <a
+              href={resumeLink}
+              download="조동훈_이력서.pdf"
+              className="inline-block bg-gradient-to-r from-cyan-500 to-purple-500 px-8 py-3 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105"
+            >
               <ShinyText 
                 text="이력서 다운로드" 
                 disabled={false} 
                 speed={3} 
                 className="text-white font-bold" 
               />
-            </button>
+            </a>
           </div>
         </div>
       </section>

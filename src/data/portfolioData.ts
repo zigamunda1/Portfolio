@@ -1,5 +1,5 @@
 import { Code, Brain, Database, Zap } from 'lucide-react';
-import type { Experience, Project, Skill, CoreCompetency, Education } from '../types';
+import type { Experience, Project, Skill, CoreCompetency, Education, SocialLinks } from '../types';
 
 export const skills: Skill[] = [
   {
@@ -98,3 +98,24 @@ export const education: Education[] = [
     description: ""
   }
 ];
+
+export const socialLinks: SocialLinks = {
+  github: "https://github.com/zigamunda1",
+  linkedin: "https://www.linkedin.com/in/dong-hoon-cho-8a9079228",
+  email: "chodonghoon91@gmail.com"
+};
+
+// 이력서 다운로드 링크
+export const resumeLink = "/resume.pdf";
+
+// 이메일 링크에 제목과 내용을 미리 설정
+export const getEmailLink = () => {
+  const subject = encodeURIComponent("AI 연구 협업 문의");
+  const body = encodeURIComponent(`안녕하세요 조동훈님,
+
+AI 학습 과정 설계 및 AI 안전 연구에 관한 협업 기회에 대해 문의드립니다.
+
+감사합니다.`);
+  
+  return `mailto:${socialLinks.email}?subject=${subject}&body=${body}`;
+};
